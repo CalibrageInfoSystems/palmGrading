@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.oilpalm3f.gradingapp">
+    package="com.palm360.palmgrading">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
@@ -32,41 +32,41 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".Oil3FPalmMainApplication"
+        android:name="com.palm360.palmgrading.Oil3FPalmMainApplication"
         android:allowBackup="true"
         android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
         android:hardwareAccelerated="false"
-        android:icon="@drawable/ic_appcon"
+        android:icon="@drawable/palm360_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/ic_appcon"
+
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
         <activity
-            android:name=".ui.GatePassInReportActivity"
+            android:name="com.palm360.palmgrading.ui.GatePassInReportActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.GatePassTokenReportActivity"
+            android:name="com.palm360.palmgrading.ui.GatePassTokenReportActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.GatepassoutActivity"
+            android:name="com.palm360.palmgrading.ui.GatepassoutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.GatepasstokenActivity"
+            android:name="com.palm360.palmgrading.ui.GatepasstokenActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.GatepassinActivity"
+            android:name="com.palm360.palmgrading.ui.GatepassinActivity"
             android:exported="false" />
-        <activity android:name=".ui.GradingReportActivity" />
-        <activity android:name=".ui.RefreshSyncActivity" />
-        <activity android:name=".ui.GradingActivity" />
-        <activity android:name=".ui.QRScanActivity" />
-        <activity android:name=".ui.MainLoginScreen" />
+        <activity android:name="com.palm360.palmgrading.ui.GradingReportActivity" />
+        <activity android:name="com.palm360.palmgrading.ui.RefreshSyncActivity" />
+        <activity android:name="com.palm360.palmgrading.ui.GradingActivity" />
+        <activity android:name="com.palm360.palmgrading.ui.QRScanActivity" />
+        <activity android:name="com.palm360.palmgrading.ui.MainLoginScreen" />
         <activity
-            android:name=".ui.SplashScreen"
+            android:name="com.palm360.palmgrading.ui.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,7 +75,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.palm360.palmgrading.MainActivity"
             android:screenOrientation="portrait" />
 
         <provider

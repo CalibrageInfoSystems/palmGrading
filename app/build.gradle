@@ -6,11 +6,11 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.oilpalm3f.gradingapp"
+        applicationId "com.palm360.palmgrading"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 6
-        versionName "6.0"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         useLibrary 'org.apache.http.legacy'
