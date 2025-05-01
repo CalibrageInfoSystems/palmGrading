@@ -6,7 +6,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' } // If still needed
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.2"
+        classpath 'com.android.tools.build:gradle:8.1.1'
         classpath 'io.fabric.tools:gradle:1.28.1'
     }
 }

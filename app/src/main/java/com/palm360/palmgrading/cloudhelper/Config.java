@@ -10,21 +10,21 @@ public class Config {
     //public static  String live_url = "http://182.18.139.166/3FOilPalm/API/api";//Live
     //public static String live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api";//Test
    //public static String live_url = "http://182.18.157.215/3FSmartPalmNursery_UAT/API/api";//Current UAT NOV 19th
-   public static String live_url = "http://13.234.87.130/3FOilpalm/API/api";//New test url 24th Jan 2025
+   public static String live_url = "hhttp://182.18.157.215/Palm360/API/api";//New test url 24th Jan 2025
     public static void initialize() {
         if (BuildConfig.BUILD_TYPE.equalsIgnoreCase("release")) {
 
             //live_url = "http://182.18.139.166/3FOilPalm/API/api";
             //live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api";
             //live_url = "http://182.18.157.215/3FSmartPalmNursery_UAT/API/api";//Current UAT NOV 19th
-            live_url = "http://13.234.87.130/3FOilpalm/API/api";//New test url 24th Jan 2025
+            live_url = "http://182.18.157.215/Palm360/API/api";//New test url 24th Jan 2025
 
         } else {
 
             //live_url = "http://182.18.139.166/3FOilPalm/API/api";
             //live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api";
             //live_url = "http://182.18.157.215/3FSmartPalmNursery_UAT/API/api";//Current UAT NOV 19th
-            live_url = "http://13.234.87.130/3FOilpalm/API/api";//New test url 24th Jan 2025
+            live_url = "http://182.18.157.215/Palm360/API/api";//New test url 24th Jan 2025
         }
     }
 

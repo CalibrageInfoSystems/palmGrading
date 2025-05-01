@@ -1,17 +1,27 @@
 package com.palm360.palmgrading.ui;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.palm360.palmgrading.R;
 import com.palm360.palmgrading.cloudhelper.ApplicationThread;
@@ -25,12 +35,20 @@ import com.palm360.palmgrading.helper.PrefUtil;
 import com.palm360.palmgrading.uihelper.ProgressBar;
 import com.palm360.palmgrading.utils.UiUtils;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class SplashScreen extends AppCompatActivity {
 
     public static final String LOG_TAG = SplashScreen.class.getName();
-    private static int SPLASH_TIME_OUT = 3000;
+
+    private static final int REQUEST_CODE_PERMISSIONS = 100;
 
     private Palm3FoilDatabase palm3FoilDatabase;
+    private DataAccessHandler dataAccessHandler;
+    private SharedPreferences sharedPreferences;
+
+
     private String[] PERMISSIONS_REQUIRED = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -41,93 +59,169 @@ public class SplashScreen extends AppCompatActivity {
             Manifest.permission.CAMERA,
             Manifest.permission.FOREGROUND_SERVICE
     };
-    private SharedPreferences sharedPreferences;
+    private ActivityResultLauncher<Intent> mGetPermission;
 
-    //Creating DB and Master Sync
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         sharedPreferences = getSharedPreferences("appprefs", MODE_PRIVATE);
 
-
         if (!CommonUtils.isNetworkAvailable(this)) {
             UiUtils.showCustomToastMessage("Please check your network connection", SplashScreen.this, 1);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !CommonUtils.areAllPermissionsAllowedNew(this, PERMISSIONS_REQUIRED)) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS_REQUIRED, CommonUtils.PERMISSION_CODE);
-        } else {
-            try {
-                palm3FoilDatabase = Palm3FoilDatabase.getPalm3FoilDatabase(this);
-                palm3FoilDatabase.createDataBase();
-                dbUpgradeCall();
+        mGetPermission = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == RESULT_OK) {
+                            Toast.makeText(SplashScreen.this, "Permission granted", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
 
+        takePermission();
+    }
+
+    private void takePermission() {
+        if (isPermissionGranted()) {
+            initializeApp();
+        } else {
+            requestPermission();
+        }
+    }
+
+    private boolean isPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager()
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.FOREGROUND_SERVICE) == PackageManager.PERMISSION_GRANTED
+                    && (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE ||
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.FOREGROUND_SERVICE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+        } else {
+            return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                mGetPermission.launch(intent);
             } catch (Exception e) {
-                e.getMessage();
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                mGetPermission.launch(intent);
             }
+        }
+
+        ArrayList<String> permissions = new ArrayList<>();
+        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        permissions.add(Manifest.permission.FOREGROUND_SERVICE);
+        permissions.add(Manifest.permission.CAMERA);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            permissions.add(Manifest.permission.FOREGROUND_SERVICE_LOCATION);
+        }
+
+        ActivityCompat.requestPermissions(
+                this,
+                permissions.toArray(new String[0]),
+                REQUEST_CODE_PERMISSIONS
+        );
+    }
+
+
+    private void initializeApp() {
+        ensureDatabaseDirectory();
+        try {
+            palm3FoilDatabase = Palm3FoilDatabase.getPalm3FoilDatabase(this);
+            palm3FoilDatabase.createDataBase();
+            dbUpgradeCall();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Database init failed: " + e.getMessage());
+        }
+
+        dataAccessHandler = new DataAccessHandler(this);
+
+        if (!CommonUtils.isNetworkAvailable(this)) {
+            UiUtils.showCustomToastMessage("Please check your network connection", this, 1);
+        } else {
             startMasterSync();
         }
-
-
     }
 
-    //Request Permissions Result
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case CommonUtils.PERMISSION_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.v(LOG_TAG, "permission granted");
-                    try {
-                        palm3FoilDatabase = Palm3FoilDatabase.getPalm3FoilDatabase(this);
-                        palm3FoilDatabase.createDataBase();
-                        dbUpgradeCall();
-                    } catch (Exception e) {
-                        Log.e(LOG_TAG, "@@@ Error while getting master data " + e.getMessage());
-                    }
-                    startMasterSync();
-                }
-                break;
+    private void ensureDatabaseDirectory() {
+        File dbDir = new File(Environment.getExternalStorageDirectory(), "palm60_Files/3F_Database");
+        if (!dbDir.exists()) {
+            boolean isCreated = dbDir.mkdirs();
+            if (!isCreated) {
+                Log.e(LOG_TAG, "Failed to create database directory");
+            }
         }
     }
 
-    //Perform Master Sync
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (isPermissionGranted()) {
+                initializeApp();
+            } else {
+                Toast.makeText(this, "Required permissions not granted", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    }
+
+    /**
+     * Master in Splash Screen
+     *
+     * @return true if available else false
+     */
     public void startMasterSync() {
 
-        if (CommonUtils.isNetworkAvailable(this)) {
+        if (CommonUtils.isNetworkAvailable(this) && !sharedPreferences.getBoolean(CommonConstants.IS_MASTER_SYNC_SUCCESS, false)) {
             DataSyncHelper.performMasterSync(this, PrefUtil.getBool(this, CommonConstants.IS_MASTER_SYNC_SUCCESS), new ApplicationThread.OnComplete() {
                 @Override
                 public void execute(boolean success, Object result, String msg) {
                     ProgressBar.hideProgressBar();
                     if (success) {
-                        Log.d("MasterSyncSuccess", "true");
-                        UiUtils.showCustomToastMessage("Master Sync Success", SplashScreen.this, 0);
                         sharedPreferences.edit().putBoolean(CommonConstants.IS_MASTER_SYNC_SUCCESS, true).apply();
-                        startActivity(new Intent(SplashScreen.this, MainLoginScreen.class));
-                        finish();
+                        goToLogin();
                     } else {
-                        Log.d("MasterSyncSuccess", "false");
-                        Log.v(LOG_TAG, "@@@ Master sync failed " + msg);
-                        ApplicationThread.uiPost(LOG_TAG, "master sync message", new Runnable() {
-                            @Override
-                            public void run() {
-                                UiUtils.showCustomToastMessage("Data syncing failed", SplashScreen.this, 1);
-                                startActivity(new Intent(SplashScreen.this, MainLoginScreen.class));
-                                finish();
-                            }
-                        }); 
+                        Log.v(LOG_TAG, "Master sync failed: " + msg);
+                        ApplicationThread.uiPost(LOG_TAG, "master sync message", () -> {
+                            UiUtils.showCustomToastMessage("Data syncing failed", SplashScreen.this, 1);
+                            goToLogin();
+                        });
                     }
                 }
             });
         } else {
-            startActivity(new Intent(SplashScreen.this, MainLoginScreen.class));
-            finish();
+            goToLogin();
         }
     }
 
-    //Db Upgrade Method
+    private void goToLogin() {
+        startActivity(new Intent(this, MainLoginScreen.class));
+        finish();
+    }
+
     public void dbUpgradeCall() {
         DataAccessHandler dataAccessHandler = new DataAccessHandler(SplashScreen.this, false);
         String count = dataAccessHandler.getCountValue(Queries.getInstance().UpgradeCount());
@@ -136,20 +230,6 @@ public class SplashScreen extends AppCompatActivity {
             sharedPreferences.edit().putBoolean(CommonConstants.IS_FRESH_INSTALL, true).apply();
         }
     }
-
-    private void setViews() {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                    Intent intent = new Intent(SplashScreen.this, MainLoginScreen.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-            }
-
-        }, SPLASH_TIME_OUT);
-    }
-
 }
+
+

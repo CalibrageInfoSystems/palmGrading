@@ -188,7 +188,7 @@ public class RefreshSyncActivity extends AppCompatActivity {
         Button yesDialogButton = dialog.findViewById(R.id.Yes);
         Button noDialogButton = dialog.findViewById(R.id.No);
         TextView msg = dialog.findViewById(R.id.test);
-        yesDialogButton.setTextColor(getResources().getColor(R.color.green));
+        yesDialogButton.setTextColor(getResources().getColor(R.color.colorPrimary));
         noDialogButton.setTextColor(getResources().getColor(R.color.btnPressedColor));
         msg.setText("Do you want to upload data base to server ?");
         // if button is clicked, close the custom dialog
