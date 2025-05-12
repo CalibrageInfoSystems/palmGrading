@@ -181,8 +181,8 @@ public class CommonUtils {
         }
 
         //return deviceId;
-       //return "351558072434071";  //myid
-       return "9426d26947822060";  //myid
+       return "351558072434071";  //myid
+     //  return "9426d26947822060";  //myid
        //return "2db226bbc3a23fd4";  //myid
       // return "9fac7f5a32533583";  //UAT user
          //return "351558072968326";
@@ -236,9 +236,9 @@ public class CommonUtils {
 
 
     //DB File Root Path
-    public static String get3FFileRootPath() {
+    public static String getFileRootPath() {
         String root = Environment.getExternalStorageDirectory().toString();
-        File rootDirectory = new File(root + "/3F_Grading");
+        File rootDirectory = new File(root + "/Palm_Grading");
         if (!rootDirectory.exists()) {
             rootDirectory.mkdirs();
         }

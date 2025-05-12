@@ -38,7 +38,7 @@ public class Palm3FoilDatabase extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATA_VERSION);
         this.mContext = context;
 
-        File dbDirectory = new File(CommonUtils.get3FFileRootPath() + "3F_Database");
+        File dbDirectory = new File(CommonUtils.getFileRootPath() + "palm_Database");
         if (!dbDirectory.exists()) {
             boolean created = dbDirectory.mkdirs();
             Log.d(LOG_TAG, "DB directory created: " + created);
