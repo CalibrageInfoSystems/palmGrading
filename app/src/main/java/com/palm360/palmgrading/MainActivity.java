@@ -2,8 +2,10 @@ package com.palm360.palmgrading;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView scanImg, reportsImg, sync_logo,gatepassinimg,gatepasstokenimg,gatepassoutimg;
     LinearLayout synclyt;
-    LinearLayout gradinglayout, gatepassseriallayout, gatepassinlayout, gatepassoutlayout;
+    ConstraintLayout gradinglayout, gatepassseriallayout, gatepassinlayout, gatepassoutlayout;
     private boolean doubleback = false;
     DataAccessHandler dataAccessHandler;
 

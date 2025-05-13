@@ -54,30 +54,6 @@
 
 
     </LinearLayout>
-<!--    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <ImageView
-                android:id="@+id/refresh_logo1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="right"
-                android:src="@drawable/sync_homelogo_nerw"
-                android:visibility="visible" />
-
-        </androidx.appcompat.widget.Toolbar>-->
-
-
 
     <LinearLayout
         android:id="@+id/synclyt"
@@ -114,184 +90,468 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         android:weightSum="3">
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true">
 
             <LinearLayout
-                android:id="@+id/grading_ll"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:visibility="visible"
-                android:weightSum="1">
+                android:padding="16dp">
 
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/scanImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="20dp"
+                        >
+                        <!--item 1-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:layout_marginEnd="15dp">
 
-                    android:layout_weight="1"
-                    android:src="@mipmap/consignment_icon" />
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/grading_ll"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/radius_border1"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
 
-                <TextView
-                    style="@style/moduleHomeBtnStyle"
-                    android:layout_below="@+id/scanImg"
-                    android:layout_gravity="center"
-                    android:text="Grading"
-                    android:textColor="@color/black" />
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/radius_border1"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:clipChildren="false"
+                                    android:padding="14dp"
+                                    android:clipToPadding="false"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/scanImg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/grading_lcon" />
+                                </FrameLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- Add the TextView here -->
+                            <TextView
+                                style="@style/moduleHomeBtnStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Grading"
+                                android:textColor="#FF5A5A"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/grading_ll"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"  />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!--item 2-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:layout_marginEnd="15dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/gatepassserial_ll"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/radius_border1"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/radius_border2"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:clipChildren="false"
+                                    android:padding="14dp"
+                                    android:clipToPadding="false"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/gatepasstokenimg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/gatepass_icon" />
+                                </FrameLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- Add the TextView here -->
+                            <TextView
+                                android:id="@+id/card1_text"
+                                style="@style/moduleHomeBtnStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Gate Pass"
+                                android:textColor="#FF5A5A"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/gatepassserial_ll"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"  />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="20dp"
+                        >
+                        <!--item 1-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:layout_marginEnd="15dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/gatepassin_ll"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/radius_border1"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/radius_border1"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:clipChildren="false"
+                                    android:padding="14dp"
+                                    android:clipToPadding="false"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/gatepassinimg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/gatepass_in_icon" />
+                                </FrameLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- Add the TextView here -->
+                            <TextView
+                                style="@style/moduleHomeBtnStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Gate Pass-In"
+                                android:textColor="#FF5A5A"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/gatepassin_ll"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"  />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!--item 2-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:layout_marginEnd="15dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/gatepassout_ll"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/radius_border1"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/radius_border2"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:clipChildren="false"
+                                    android:padding="14dp"
+                                    android:clipToPadding="false"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/gatepassoutimg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/gatepass_out_icon" />
+                                </FrameLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- Add the TextView here -->
+                            <TextView
+                                style="@style/moduleHomeBtnStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Gate Pass-Out"
+                                android:textColor="#FF5A5A"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/gatepassout_ll"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"  />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/home_bg"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="20dp"
+                        >
+                        <!--item 1-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:layout_marginEnd="15dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/reportsRel_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/radius_border1"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/radius_border2"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:clipChildren="false"
+                                    android:padding="14dp"
+                                    android:clipToPadding="false"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/reportsImg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/reports_icon" />
+                                </FrameLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- Add the TextView here -->
+                            <TextView
+                                style="@style/moduleHomeBtnStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Reports"
+                                android:textColor="#FF5A5A"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/reportsRel_1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"  />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!--item 2-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:visibility="invisible"
+                            >
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/card6"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/radius_border1"
+                                app:layout_constraintDimensionRatio="1:1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:background="@drawable/radius_border1"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:clipChildren="false"
+                                    android:padding="14dp"
+                                    android:clipToPadding="false"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/reports_img"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/reports_icon" />
+                                </FrameLayout>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <!-- Add the TextView here -->
+                            <TextView
+                                style="@style/moduleHomeBtnStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Gate Pass-Out"
+                                android:textColor="#FF5A5A"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/card6"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"  />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/reportsRel_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="visible"
-                android:weightSum="1">
+        </ScrollView>
 
 
-                <ImageView
-                    android:id="@+id/reportsImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:src="@mipmap/reports_icon" />
-
-                <TextView
-                    style="@style/moduleHomeBtnStyle"
-                    android:layout_below="@+id/scanImg"
-                    android:layout_gravity="center"
-                    android:text="Reports"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <LinearLayout
-                android:id="@+id/gatepassserial_ll"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical"
-
-                android:visibility="visible"
-                android:weightSum="1">
-
-
-                <ImageView
-                    android:id="@+id/gatepasstokenimg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-
-                    android:layout_weight="1"
-                    android:src="@drawable/gatepasstoken"/>
-
-                <TextView
-                    style="@style/moduleHomeBtnStyle"
-                    android:layout_below="@+id/scanImg"
-                    android:layout_gravity="center"
-                    android:text="Gate Pass Serial Number"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gatepassin_ll"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="visible"
-                android:weightSum="1">
-
-
-                <ImageView
-                    android:id="@+id/gatepassinimg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:src="@drawable/gatepassin"/>
-
-                <TextView
-                    style="@style/moduleHomeBtnStyle"
-                    android:layout_below="@+id/scanImg"
-                    android:layout_gravity="center"
-                    android:text="Gate Pass-In"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-
-            <LinearLayout
-                android:id="@+id/gatepassout_ll"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="visible"
-                android:weightSum="1">
-
-
-                <ImageView
-                    android:id="@+id/gatepassoutimg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:src="@drawable/gatepassout"/>
-
-                <TextView
-                    style="@style/moduleHomeBtnStyle"
-                    android:layout_below="@+id/scanImg"
-                    android:layout_gravity="center"
-                    android:text="Gate Pass Out"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
